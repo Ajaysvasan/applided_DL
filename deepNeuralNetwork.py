@@ -3,11 +3,13 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 class DeepNeuralNetwork:
-    def __init__(self, input_size, hidden_layers, output_size, task):
+    def __init__(self, input_size:int, hidden_layers:int, output_size:int, task:str):
         self.input_size = input_size
         self.hidden_layers = hidden_layers
         self.output_size = output_size
-        self.task = task
+        if task.lower()!= "classification" and task.lower() != "regression":
+            raise ValueError("Invalid task")
+        self.task = task.lower()
         self.model = self.build_model()
     
     def build_model(self):
@@ -27,8 +29,6 @@ class DeepNeuralNetwork:
         elif self.task == 'regression':
             model.add(Dense(self.output_size, activation='linear'))
             model.compile(loss='mean_squared_error', optimizer='adam', metrics=['mse'])
-        else:
-            raise ValueError("Invalid task. Use 'classification' or 'regression'.")
 
         return model
     
