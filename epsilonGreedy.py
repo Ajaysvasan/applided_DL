@@ -19,11 +19,8 @@ class EpsilonGreedy:
     
     def select_arm(self):
         # With probability epsilon, explore; otherwise exploit
-        if np.random.rand() < self.epsilon:
-            return np.random.randint(self.num_arms)
-        else:
-            return np.argmax(self.values)
-    
+        return np.random.randint(self.num_arms) if np.random.rand() < self.epsilon else return np.argmax(self.values)
+        
     def update(self, arm, reward):
         # Increment the count for this arm
         self.counts[arm] += 1
